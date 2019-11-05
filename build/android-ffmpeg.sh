@@ -390,6 +390,12 @@ ulimit -n 2048 1>>${BASEDIR}/build.log 2>&1
     --disable-nvenc \
     --disable-vaapi \
     --disable-vdpau \
+    --disable-everything \
+    --enable-encoder=aac* \
+    --enable-decoder=aac* \
+    --enable-protocol=file \
+    --enable-muxer=h264,mp4 \
+    --enable-parser=aac* \
     ${CONFIGURE_POSTFIX} 1>>${BASEDIR}/build.log 2>&1
 
 if [ $? -ne 0 ]; then

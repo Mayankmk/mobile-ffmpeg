@@ -341,7 +341,6 @@ ulimit -n 2048 1>>${BASEDIR}/build.log 2>&1
     --sysroot="${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/${TOOLCHAIN}/sysroot" \
     --prefix="${BASEDIR}/prebuilt/android-$(get_target_build)/${LIB_NAME}" \
     --pkg-config="${HOST_PKG_CONFIG_PATH}" \
-    --enable-version3 \
     --arch="${TARGET_ARCH}" \
     --cpu="${TARGET_CPU}" \
     --cc="${CC}" \
@@ -392,10 +391,13 @@ ulimit -n 2048 1>>${BASEDIR}/build.log 2>&1
     --disable-vdpau \
     --disable-everything \
     --enable-encoder=aac* \
-    --enable-decoder=aac* \
+    --enable-decoder=aac*,libopus,libvorbis,mp3*,opus,pcm*,vorbis \
+    --enable-muxer=ffmetadata,adts,h264,mp4 \
+    --enable-demuxer=aac,ffmetadata,h264,hevc,mp3,mov,matroska,pcm*,wav \
+    --enable-parser=aac*,h264,hevc,opus,vorbis,vp8,vp9 \
     --enable-protocol=file \
-    --enable-muxer=h264,mp4 \
-    --enable-parser=aac* \
+    --enable-indev=lavfi \
+    --enable-filter=acopy,adelay,aformat,amerge,ametadata,amix,anull,anullsrc,aresample,asetpts,asetrate,astreamselect,atrim,copy,metadata,volume \
     ${CONFIGURE_POSTFIX} 1>>${BASEDIR}/build.log 2>&1
 
 if [ $? -ne 0 ]; then
